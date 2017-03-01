@@ -5,7 +5,19 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     config = require('./config'),
-    i18n = require("i18n");
+    i18n = require("i18n"),
+    exphbs = require('express-handlebars'),
+    handlebars = require('handlebars');
+
+var hbs = exphbs.create({
+    // Specify helpers which are only registered on this instance.
+    helpers: {
+        __: function(str) {
+          return (i18n != undefined ? i18n.t(str) : str);
+        },
+        foo: function () { return 'BAR!'; }
+    }
+});
 
 var routes = require('./routes/index');
 
@@ -23,8 +35,9 @@ i18n.setLocale(config.locale);
 app.use(i18n.init);
 
 // view engine setup
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));

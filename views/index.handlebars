@@ -1,0 +1,36 @@
+<div id="wrapper">
+  <div class="main">
+    <div class="header">
+      <h1><strong>{{community}}</strong></h1>
+      <h2>{{__ 'HEADER' community}}</h2>
+    </div>
+    <div class="content">
+      <div class="information">
+        <form method="POST" action="/invite" id="join-form" class="form">
+          <input type="email" name="email" placeholder="{{__ 'ENTER_EMAIL'}}" id="slack-email" class="field">
+          {{#if tokenRequired}}
+            <input type="text" name="token" placeholder="{{__ 'ENTER_TOKEN'}}" id="slack-token" class="field">
+          {{/if}}
+          <input type="submit" value="Join" class="submit"></form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var tokenRequired = {
+    {
+      tokenRequired
+    }
+  };
+  var form = document.getElementById('join-form');
+  var email = document.getElementById('slack-email');
+  var token = document.getElementById('slack-token');
+  form.addEventListener('submit', function(evt) {
+    if (!email.value) {
+      evt.preventDefault();
+    }
+    if (tokenRequired && !token.value) {
+      evt.preventDefault();
+    }
+  });
+</script>
