@@ -7,7 +7,7 @@
     <div class="content">
       <div class="information">
         <form method="POST" action="/invite" id="join-form" class="form">
-          <input type="email" name="email" placeholder="{{__ 'ENTER_EMAIL'}}" id="slack-email" class="field">
+          <input type="email" name="email" placeholder="{{__ 'ENTER_EMAIL'}}" id="slack-email" class="field" autofocus>
           {{#if tokenRequired}}
             <input type="text" name="token" placeholder="{{__ 'ENTER_TOKEN'}}" id="slack-token" class="field">
           {{/if}}
